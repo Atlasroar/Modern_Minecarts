@@ -112,4 +112,4 @@ Place the override at `data/<namespace>/recipes/<recipe_id>.json` in your datapa
 
 - Minecraft 1.20.1
 - Fabric
-- Kilt 1.20.1 (configured rail speeds are supported)
+- Kilt 1.20.1 (configured rail speeds are supported; Kilt's cart speed cap is adjusted to the active rail speed)
