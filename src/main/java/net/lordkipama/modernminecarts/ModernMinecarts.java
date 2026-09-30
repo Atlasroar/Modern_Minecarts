@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.lordkipama.modernminecarts.block.ModBlocks;
 import net.lordkipama.modernminecarts.interfaces.ChainMinecartInterface;
 import net.lordkipama.modernminecarts.network.MinecartRiderInput;
-import net.lordkipama.modernminecarts.recipe.ModRecipeSerializers;
 import net.lordkipama.modernminecarts.resource.ModResourceConditions;
 import net.lordkipama.modernminecarts.screen.ModScreenHandlers;
 import net.minecraft.block.Block;
@@ -55,7 +54,6 @@ public class ModernMinecarts implements ModInitializer {
 	public void onInitialize() {
 		ModernMinecartsConfig.load(LOGGER);
 		ModResourceConditions.register();
-		ModRecipeSerializers.register();
 		ModBlocks.registerModBlocks();
 		ModScreenHandlers.register();
 		MinecartRiderInput.registerServerReceiver();

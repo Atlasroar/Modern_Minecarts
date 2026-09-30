@@ -16,9 +16,6 @@ import java.util.Properties;
 public final class ModernMinecartsConfig {
     private static final double MIN_SPEED = 0.01D;
     private static final double MAX_SPEED = 1.6D;
-    private static final int MIN_RECIPE_YIELD = 1;
-    private static final int MAX_RECIPE_YIELD = 64;
-
     private static final Path CONFIG_PATH = FabricLoader.getInstance()
             .getConfigDir()
             .resolve("modernminecarts.properties");
@@ -36,9 +33,6 @@ public final class ModernMinecartsConfig {
     private static boolean enableRailCrossing = true;
     private static boolean enablePoweredDetectorRail = true;
     private static boolean enableRailJump = true;
-
-    private static int copperRailRecipeYield = 6;
-    private static int poweredRailRecipeYield = 12;
 
     private ModernMinecartsConfig() {
     }
@@ -73,23 +67,6 @@ public final class ModernMinecartsConfig {
         enablePoweredDetectorRail = readBoolean(properties, "enable_powered_detector_rail", true, logger);
         enableRailJump = readBoolean(properties, "enable_rail_jump", true, logger);
 
-        copperRailRecipeYield = readInt(
-                properties,
-                "copper_rail_recipe_yield",
-                6,
-                MIN_RECIPE_YIELD,
-                MAX_RECIPE_YIELD,
-                logger
-        );
-        poweredRailRecipeYield = readInt(
-                properties,
-                "powered_rail_recipe_yield",
-                12,
-                MIN_RECIPE_YIELD,
-                MAX_RECIPE_YIELD,
-                logger
-        );
-
         save(logger);
     }
 
@@ -117,10 +94,6 @@ public final class ModernMinecartsConfig {
                 writer.write("enable_powered_detector_rail=" + enablePoweredDetectorRail + "\n");
                 writer.write("enable_rail_jump=" + enableRailJump + "\n\n");
 
-                writer.write("# Crafting Recipes\n");
-                writer.write("# Allowed range for recipe yields: 1 - 64\n");
-                writer.write("copper_rail_recipe_yield=" + copperRailRecipeYield + "\n");
-                writer.write("powered_rail_recipe_yield=" + poweredRailRecipeYield + "\n");
             }
         } catch (IOException exception) {
             logger.warn("Failed to write config file {}.", CONFIG_PATH, exception);
@@ -175,14 +148,6 @@ public final class ModernMinecartsConfig {
         return enableRailJump;
     }
 
-    public static int copperRailRecipeYield() {
-        return copperRailRecipeYield;
-    }
-
-    public static int poweredRailRecipeYield() {
-        return poweredRailRecipeYield;
-    }
-
     private static double readDouble(
             Properties properties,
             String key,
@@ -200,27 +165,6 @@ public final class ModernMinecartsConfig {
             return clamp(Double.parseDouble(raw.trim()), min, max);
         } catch (NumberFormatException exception) {
             logger.warn("Invalid double value '{}' for {}. Using default {}.", raw, key, defaultValue);
-            return defaultValue;
-        }
-    }
-
-    private static int readInt(
-            Properties properties,
-            String key,
-            int defaultValue,
-            int min,
-            int max,
-            Logger logger
-    ) {
-        String raw = properties.getProperty(key);
-        if (raw == null) {
-            return defaultValue;
-        }
-
-        try {
-            return (int) clamp(Integer.parseInt(raw.trim()), min, max);
-        } catch (NumberFormatException exception) {
-            logger.warn("Invalid integer value '{}' for {}. Using default {}.", raw, key, defaultValue);
             return defaultValue;
         }
     }
