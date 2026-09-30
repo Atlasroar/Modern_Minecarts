@@ -6,8 +6,6 @@ import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.lordkipama.modernminecarts.interfaces.ChainMinecartInterface;
 import net.lordkipama.modernminecarts.interfaces.ContainerMinecartInteface;
-import net.lordkipama.modernminecarts.logic.MinecartTuning;
-import net.lordkipama.modernminecarts.logic.PoweredDetectorMotion;
 import net.lordkipama.modernminecarts.ModernMinecarts;
 import net.lordkipama.modernminecarts.block.Custom.CopperRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.DirectedPoweredRailBlock;
@@ -15,6 +13,9 @@ import net.lordkipama.modernminecarts.block.Custom.PoweredDetectorRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.SlopedRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.WaxedCopperRailBlock;
 import net.lordkipama.modernminecarts.block.ModBlocks;
+import net.lordkipama.modernminecarts.logic.MinecartTuning;
+import net.lordkipama.modernminecarts.logic.PoweredDetectorMotion;
+import net.lordkipama.modernminecarts.network.MinecartRiderInput;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.RailShape;
 import net.minecraft.entity.Entity;
@@ -144,11 +145,14 @@ public class MinecartMixin implements ChainMinecartInterface {
         thisObject.setVelocity(vec3d2);
         Entity entity = thisObject.getFirstPassenger();
         if (entity instanceof PlayerEntity) {
-            Vec3d vec3d3 = entity.getVelocity();
-            double m = vec3d3.horizontalLengthSquared();
-            double n = thisObject.getVelocity().horizontalLengthSquared();
-            if (m > 1.0E-4 && n < 0.01) {
-                thisObject.setVelocity(thisObject.getVelocity().add(vec3d3.x * 0.1, 0.0, vec3d3.z * 0.1));
+            Vec3d moveIntent = MinecartRiderInput.getMoveIntent((PlayerEntity) entity);
+            double inputAlongRail = (moveIntent.x * h + moveIntent.z * i) / j;
+            if (Math.abs(inputAlongRail) > 1.0E-4) {
+                thisObject.setVelocity(thisObject.getVelocity().add(
+                        h / j * inputAlongRail * 0.01,
+                        0.0,
+                        i / j * inputAlongRail * 0.01
+                ));
                 bl2 = false;
             }
         }
