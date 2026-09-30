@@ -6,15 +6,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.lordkipama.modernminecarts.client.FurnaceMinecartScreen;
 import net.lordkipama.modernminecarts.block.ModBlocks;
 import net.lordkipama.modernminecarts.screen.ModScreenHandlers;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class ModernMinecartsClient implements ClientModInitializer {
@@ -37,12 +33,5 @@ public class ModernMinecartsClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), ModBlocks.RAIL_JUMP);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), ModBlocks.POWERED_DETECTOR_RAIL);
-
-        ResourceManagerHelper.registerBuiltinResourcePack(
-                ModernMinecarts.id("modernminecarts3d"),
-                FabricLoader.getInstance().getModContainer(ModernMinecarts.MOD_ID).orElseThrow(),
-                Text.literal("Modern Minecarts 3D Copper Rails"),
-                ResourcePackActivationType.NORMAL
-        );
     }
 }
