@@ -280,7 +280,9 @@ public class MinecartMixin implements ChainMinecartInterface {
         BlockState blockUnder = thisObject.getWorld().getBlockState(new BlockPos(i, j - 1, k));
 
 
-        if (thisObject.isOnRail()){
+        if (thisObject.isOnRail()
+                || AbstractRailBlock.isRail(block)
+                || AbstractRailBlock.isRail(blockUnder)) {
             if (block.isOf(Blocks.POWERED_RAIL)) {
                 cir.setReturnValue(MinecartTuning.poweredRailSpeed());
             }
