@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.lordkipama.modernminecarts.block.ModBlocks;
 import net.lordkipama.modernminecarts.interfaces.ChainMinecartInterface;
+import net.lordkipama.modernminecarts.network.MinecartRiderInput;
 import net.lordkipama.modernminecarts.recipe.ModRecipeSerializers;
 import net.lordkipama.modernminecarts.resource.ModResourceConditions;
 import net.lordkipama.modernminecarts.screen.ModScreenHandlers;
@@ -57,6 +58,7 @@ public class ModernMinecarts implements ModInitializer {
 		ModRecipeSerializers.register();
 		ModBlocks.registerModBlocks();
 		ModScreenHandlers.register();
+		MinecartRiderInput.registerServerReceiver();
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
 			if (ModernMinecartsConfig.enableCopperRails()) {
@@ -69,6 +71,7 @@ public class ModernMinecarts implements ModInitializer {
 				entries.add(ModBlocks.WAXED_WEATHERED_COPPER_RAIL);
 				entries.add(ModBlocks.WAXED_OXIDIZED_COPPER_RAIL);
 			}
+
 			if (ModernMinecartsConfig.enableRailCrossing()) {
 				entries.add(ModBlocks.RAIL_CROSSING);
 			}
@@ -372,4 +375,3 @@ public class ModernMinecarts implements ModInitializer {
 		return new Identifier(MOD_ID, name);
 	}
 }
-
