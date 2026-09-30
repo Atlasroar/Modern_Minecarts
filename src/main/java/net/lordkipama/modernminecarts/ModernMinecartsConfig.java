@@ -16,6 +16,9 @@ import java.util.Properties;
 public final class ModernMinecartsConfig {
     private static final double MIN_SPEED = 0.01D;
     private static final double MAX_SPEED = 1.6D;
+    private static final int CONFIG_VERSION = 1;
+    private static final double PREVIOUS_DEFAULT_POWERED_RAIL_SPEED = 0.4D;
+    private static final double DEFAULT_POWERED_RAIL_SPEED = 1.0D;
     private static final Path CONFIG_PATH = FabricLoader.getInstance()
             .getConfigDir()
             .resolve("modernminecarts.properties");
@@ -24,7 +27,7 @@ public final class ModernMinecartsConfig {
     private static double exposedCopperSpeed = 0.6D;
     private static double weatheredCopperSpeed = 0.3D;
     private static double oxidizedCopperSpeed = 0.2D;
-    private static double poweredRailSpeed = 0.4D;
+    private static double poweredRailSpeed = DEFAULT_POWERED_RAIL_SPEED;
     private static double maxAscendingSpeed = 0.5D;
 
     private static boolean enableFurnaceMinecartChunkloading = true;
@@ -52,7 +55,19 @@ public final class ModernMinecartsConfig {
         exposedCopperSpeed = readDouble(properties, "exposed_copper_speed", 0.6D, MIN_SPEED, MAX_SPEED, logger);
         weatheredCopperSpeed = readDouble(properties, "weathered_copper_speed", 0.3D, MIN_SPEED, MAX_SPEED, logger);
         oxidizedCopperSpeed = readDouble(properties, "oxidized_copper_speed", 0.2D, MIN_SPEED, MAX_SPEED, logger);
-        poweredRailSpeed = readDouble(properties, "powered_rail_speed", 0.4D, MIN_SPEED, MAX_SPEED, logger);
+        int configVersion = readConfigVersion(properties, logger);
+        poweredRailSpeed = readDouble(
+                properties,
+                "powered_rail_speed",
+                DEFAULT_POWERED_RAIL_SPEED,
+                MIN_SPEED,
+                MAX_SPEED,
+                logger
+        );
+        if (configVersion < CONFIG_VERSION
+                && isPreviousDefaultPoweredRailSpeed(properties.getProperty("powered_rail_speed"))) {
+            poweredRailSpeed = DEFAULT_POWERED_RAIL_SPEED;
+        }
         maxAscendingSpeed = readDouble(properties, "max_ascending_speed", 0.5D, MIN_SPEED, MAX_SPEED, logger);
 
         enableFurnaceMinecartChunkloading = readBoolean(
@@ -76,6 +91,7 @@ public final class ModernMinecartsConfig {
             try (Writer writer = new OutputStreamWriter(Files.newOutputStream(CONFIG_PATH), StandardCharsets.UTF_8)) {
                 writer.write("# Modern Minecarts configuration\n");
                 writer.write("# Speed settings apply immediately. Feature toggles require a restart.\n\n");
+                writer.write("config_version=" + CONFIG_VERSION + "\n\n");
 
                 writer.write("# Rail Speeds\n");
                 writer.write("# Allowed range for all speed values: 0.01 - 1.6\n");
@@ -216,6 +232,32 @@ public final class ModernMinecartsConfig {
 
         logger.warn("Invalid boolean value '{}' for {}. Using default {}.", raw, key, defaultValue);
         return defaultValue;
+    }
+
+    private static int readConfigVersion(Properties properties, Logger logger) {
+        String raw = properties.getProperty("config_version");
+        if (raw == null) {
+            return 0;
+        }
+
+        try {
+            return Math.max(0, Integer.parseInt(raw.trim()));
+        } catch (NumberFormatException exception) {
+            logger.warn("Invalid config version '{}'. Treating it as an older config.", raw);
+            return 0;
+        }
+    }
+
+    private static boolean isPreviousDefaultPoweredRailSpeed(String raw) {
+        if (raw == null) {
+            return false;
+        }
+
+        try {
+            return Double.compare(Double.parseDouble(raw.trim()), PREVIOUS_DEFAULT_POWERED_RAIL_SPEED) == 0;
+        } catch (NumberFormatException exception) {
+            return false;
+        }
     }
 
     private static double clamp(double value, double min, double max) {

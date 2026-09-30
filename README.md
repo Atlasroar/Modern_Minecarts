@@ -14,7 +14,7 @@ It makes them a viable method of transport for players and items again, while ke
 
 Short Feature List:
 
-- **Copper Rails:** Faster than powered rails by default; oxidation reduces their speed.
+- **Copper Rails:** Fast rails that slow down as they oxidize; vanilla Powered Rails are fastest by default.
 - **Chains:** Link minecarts by shift-right-clicking a minecart while holding a chain.
 - **Furnace Minecarts:** Fuel-powered engines with an in-game fuel and speedometer UI; accept furnace fuels.
 - **Shared Inventories:** Chained chest and hopper minecarts share storage access. Furnace minecarts can draw fuel from attached chest and hopper minecarts.
@@ -27,7 +27,15 @@ Short Feature List:
 
 ## Copper Rails
 
-Copper Rails are twice as fast as powered rails at the default settings. As they oxidize, their speed decreases through four stages, down to half the default powered-rail speed. They use copper in the powered-rail crafting pattern. Apply honeycomb to wax a rail and prevent further oxidation.
+Copper Rails are the second-fastest rails by default. As they oxidize, their speed decreases through four stages. Waxed versions retain the speed of their current oxidation stage. They use copper in the powered-rail crafting pattern; apply honeycomb to prevent further oxidation.
+
+| Rail | Default speed |
+| --- | ---: |
+| Vanilla Powered Rail | 1.0 |
+| Copper / Waxed Copper Rail | 0.8 |
+| Exposed Copper / Waxed Exposed Copper Rail | 0.6 |
+| Weathered Copper / Waxed Weathered Copper Rail | 0.3 |
+| Oxidized Copper / Waxed Oxidized Copper Rail | 0.2 |
 
 ## Chaining Minecarts
 
@@ -62,13 +70,15 @@ With [Mod Menu](https://github.com/TerraformersMC/ModMenu) installed, open the c
 The configuration screen and `config/modernminecarts.properties` provide settings for:
 
 - Copper, exposed, weathered, and oxidized Copper Rail speeds
-- Powered Rail speed
+- Vanilla Powered Rail speed
 - Maximum speed on ascending rails
 - Furnace Minecart chunkloading
 - Minecart chaining
 - Copper Rails, Rail Crossings, Powered Detector Rail, and Rail Jump feature toggles
 
 Speed settings saved in Mod Menu apply immediately. Feature toggles take full effect after restarting the game. Manual edits to the properties file are read when the game starts. Speed values are limited to `0.01`–`1.6`. Directed Powered Rails are always registered and do not have a feature toggle.
+
+Powered Rails default to `1.0`, faster than every Copper Rail oxidation stage. Existing configuration files that still contain the old default of `0.4` are upgraded automatically; other saved speed values are retained.
 
 ### Datapack Recipes
 
