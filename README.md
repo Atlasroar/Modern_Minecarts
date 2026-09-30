@@ -15,6 +15,8 @@ However, oxidation causes them to become slower over time, down to half the spee
 They are crafted like regular powered rails, using copper instead of gold.
 Wax them with honeycomb to keep them from oxidizing.
 
+The optional **Modern Minecarts 3D Copper Rails** resource pack adds 3D models for copper rails.
+
 ---
 
 ### Chaining Minecarts
@@ -72,8 +74,11 @@ The following values can be tweaked:
 
 ### Other Changes
 
+- Non-powered rails other than crossings can reach the speed of normal copper rails, with a configurable lower cap when ascending.
 - Doubled the powered rail crafting result from 6 to 12 rails.
 - Reduced minecart air drag to allow for further jumps.
+
+The copper-rail mechanics and optional 3D models are adapted from [Copper Rails](https://github.com/FXCourel/Copper-Rails/tree/1.20.1), released under CC0-1.0.
 
 ---
 

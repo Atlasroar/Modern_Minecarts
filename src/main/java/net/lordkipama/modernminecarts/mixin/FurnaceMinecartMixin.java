@@ -514,6 +514,11 @@ public abstract class FurnaceMinecartMixin implements Inventory, NamedScreenHand
         double railSpeed = modernminecarts$getParent(cart) != null
                 ? MinecartTuning.copperRailSpeed()
                 : modernminecarts$getSpeedForRail(cart, railPos, railState);
+        if (!railState.isOf(ModBlocks.RAIL_JUMP)
+                && !railState.isOf(ModBlocks.RAIL_CROSSING)
+                && railState.get(((AbstractRailBlock) railState.getBlock()).getShapeProperty()).isAscending()) {
+            railSpeed = Math.min(railSpeed, MinecartTuning.ascendingCopperRailSpeed());
+        }
         if (cart.isTouchingWater() && !railState.isOf(Blocks.POWERED_RAIL)) {
             railSpeed /= 2.0D;
         }
@@ -566,30 +571,28 @@ public abstract class FurnaceMinecartMixin implements Inventory, NamedScreenHand
         if (state.getBlock() instanceof CopperRailBlock
                 || state.getBlock() instanceof WaxedCopperRailBlock) {
             RailShape shape = state.get(((AbstractRailBlock) state.getBlock()).getShapeProperty());
-            if (shape.isAscending()) {
-                if (state.isOf(ModBlocks.COPPER_RAIL)
-                        || state.isOf(ModBlocks.WAXED_COPPER_RAIL)
-                        || state.isOf(ModBlocks.EXPOSED_COPPER_RAIL)
-                        || state.isOf(ModBlocks.WAXED_EXPOSED_COPPER_RAIL)) {
-                    return MinecartTuning.ascendingCopperRailSpeed();
-                }
-            }
-
+            double railSpeed;
             if (state.isOf(ModBlocks.COPPER_RAIL) || state.isOf(ModBlocks.WAXED_COPPER_RAIL)) {
-                return MinecartTuning.copperRailSpeed();
-            }
-            if (state.isOf(ModBlocks.EXPOSED_COPPER_RAIL)
+                railSpeed = MinecartTuning.copperRailSpeed();
+            } else if (state.isOf(ModBlocks.EXPOSED_COPPER_RAIL)
                     || state.isOf(ModBlocks.WAXED_EXPOSED_COPPER_RAIL)) {
-                return MinecartTuning.exposedCopperRailSpeed();
-            }
-            if (state.isOf(ModBlocks.WEATHERED_COPPER_RAIL)
+                railSpeed = MinecartTuning.exposedCopperRailSpeed();
+            } else if (state.isOf(ModBlocks.WEATHERED_COPPER_RAIL)
                     || state.isOf(ModBlocks.WAXED_WEATHERED_COPPER_RAIL)) {
-                return MinecartTuning.weatheredCopperRailSpeed();
+                railSpeed = MinecartTuning.weatheredCopperRailSpeed();
+            } else {
+                railSpeed = MinecartTuning.oxidizedCopperRailSpeed();
             }
-            return MinecartTuning.oxidizedCopperRailSpeed();
+            return shape.isAscending()
+                    ? Math.min(railSpeed, MinecartTuning.ascendingCopperRailSpeed())
+                    : railSpeed;
         }
 
-        return MinecartTuning.VANILLA_RAIL_SPEED;
+        RailShape shape = state.get(((AbstractRailBlock) state.getBlock()).getShapeProperty());
+        double railSpeed = MinecartTuning.normalRailSpeed();
+        return shape.isAscending()
+                ? Math.min(railSpeed, MinecartTuning.ascendingCopperRailSpeed())
+                : railSpeed;
     }
 
     @Unique
