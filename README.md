@@ -1,79 +1,78 @@
 # ModernMinecarts
 
-## Description
+> **AI assistance disclosure:** AI assistance was used to update this README and to help develop portions of this mod.
+>
+> **Original author:** ModernMinecarts was originally created by [Kipama](https://github.com/Kipama/Modern_Minecarts). This project builds on Kipama's work; original authorship is credited here.
+
+The Minecart Update you've been waiting for.
 
 ModernMinecarts is all about rekindling your love for Minecarts.
 
 It makes them a viable method of transport for players and items again, while keeping a vanilla style.
 
-### Copper Rails
+## Features
 
-These rails are twice as fast as powered rails.
+Short Feature List:
 
-However, oxidation causes them to become slower over time, down to half the speed of powered rails.
+- **Copper Rails:** Faster than powered rails by default; oxidation reduces their speed.
+- **Chains:** Link minecarts by shift-right-clicking a minecart while holding a chain.
+- **Furnace Minecarts:** Fuel-powered engines with an in-game fuel and speedometer UI; accept furnace fuels.
+- **Shared Inventories:** Chained chest and hopper minecarts share storage access. Furnace minecarts can draw fuel from attached chest and hopper minecarts.
+- **Rail Jump:** A ramp made from a regular rail and a stick, or by using a stick on an existing rail.
+- **Rail Crossing:** An intersection that supports travel from all directions.
+- **Directed Powered Rail:** Accelerates minecarts in one direction, including stationary carts.
+- **Powered Detector Rail:** Powers based on cart occupancy or inventory fullness; invert it to change the trigger.
+- **Shared Rail Power:** Vanilla, copper, waxed copper, and Directed Powered Rails propagate redstone power across rail types.
+- **Configuration:** Adjust rail speeds and feature toggles in Mod Menu or the config file; replace rail recipes with datapacks.
 
-They are crafted like regular powered rails, using copper instead of gold.
-Wax them with honeycomb to keep them from oxidizing.
+## Copper Rails
 
----
+Copper Rails are twice as fast as powered rails at the default settings. As they oxidize, their speed decreases through four stages, down to half the default powered-rail speed. They use copper in the powered-rail crafting pattern. Apply honeycomb to wax a rail and prevent further oxidation.
 
-### Chaining Minecarts
+## Chaining Minecarts
 
-Link minecarts together using chains to transport multiple entities or large quantities of items simultaneously.
+Hold a chain and shift-right-click minecarts to link them into a train. Chained chest and hopper minecart storage can be accessed together, allowing loading and unloading through a single hopper. Furnace minecarts can draw fuel from attached chest and hopper minecarts.
 
-Connected hopper minecarts and chest minecarts join their inventories, allowing loading and unloading from a single hopper minecart.
+## Furnace Minecarts
 
----
+Furnace Minecarts are upgraded fuel-powered engines. Interact with one to open its fuel interface and speedometer. They accept furnace fuels, can draw fuel from attached chest or hopper minecarts, and can keep chunks loaded while burning fuel if chunkloading is enabled. Trains slow under heavy load; chaining multiple furnace minecarts can help haul heavier trains. Furnace minecarts do not burn fuel while riding an actively powered rail and stop on unpowered powered rails.
 
-### Furnace Minecarts
+## New Rail Types
 
-Furnace Minecarts have gotten an upgrade, now travelling twice as fast.
-They have a new UI screen with a speedometer and a fuel slot that accepts all fuel types.
+### Rail Jump
 
-They also refuel themselves from attached chest and hopper minecarts,
-but slow down under heavy load.
-Chain multiple Furnace Minecarts together when pulling large trains to avoid this.
+This ramp launches minecarts over gaps without requiring experimental features. Craft it with a rail and a stick, or use a stick on an already placed rail.
 
----
+### Rail Crossing
 
-### New Rail Types
+A simple intersection that supports straight travel from all directions.
 
-Directed Powered Rail: A redstone-powered rail that launches stationary minecarts and accelerates all carts in one direction. Place it while facing along the track to set its direction, or right-click it with an empty hand to reverse it.
+### Directed Powered Rail
 
-Rail Jump: This ramp lets minecarts leap over gaps, even when not using experimental features.
-It is crafted with a rail and a stick, or by using a stick on an already placed rail.
+Always accelerates minecarts in the same direction, including stationary carts. Use it to build one-way tracks and redstone-controlled train stations. Place it facing along the track to set its travel direction, or right-click it with an empty hand to reverse direction.
 
-Rail Crossing: A simple rail intersection that acts like a straight rail from all directions.
+### Powered Detector Rail
 
-Powered Detector Rail: It merges the functionalities of powered and detector rails. 
-Stop empty carts or trains until fully loaded, or invert it to unload full minecarts and send them off once empty.
-Shift right-click to swap the direction it faces.
+Combines powered-rail and detector-rail behavior. It can hold an empty cart or train until it is occupied or loaded, or be inverted to trigger when an inventory is empty. Shift-right-click to change the direction it faces; right-click normally to invert its fullness behavior.
 
----
+## Customizability
 
-### Customizability
+With [Mod Menu](https://github.com/TerraformersMC/ModMenu) installed, open the configuration screen from the Modern Minecarts entry in the Mods menu. Mod Menu is optional and is not bundled with the mod.
 
-The Mod now features a config file that allows you to customize the mod to your liking.
+The configuration screen and `config/modernminecarts.properties` provide settings for:
 
-The following features can be disabled:
-- Furnace Minecart Chunkloading
-- Minecart Chaining
-- Copper Rails
-- Rail Crossing
-- Powered Detector Rail
-- Rail Jump
+- Copper, exposed, weathered, and oxidized Copper Rail speeds
+- Powered Rail speed
+- Maximum speed on ascending rails
+- Furnace Minecart chunkloading
+- Minecart chaining
+- Copper Rails, Rail Crossings, Powered Detector Rail, and Rail Jump feature toggles
 
-The following values can be tweaked:
-
-- Copper Rail Speeds for each stage of oxidation
-
-### Mod Menu Configuration
-
-When Mod Menu is installed, Modern Minecarts exposes its configuration screen from the mod details page. Rail speed settings can be changed immediately; feature toggles are saved to `config/modernminecarts.properties` and require a restart to fully apply.
+Speed settings saved in Mod Menu apply immediately. Feature toggles take full effect after restarting the game. Manual edits to the properties file are read when the game starts. Speed values are limited to `0.01`–`1.6`. Directed Powered Rails are always registered and do not have a feature toggle.
 
 ### Datapack Recipes
 
-Rail recipes use vanilla crafting recipe formats and can be replaced by datapacks or other mods by overriding their recipe IDs:
+Rail recipe result counts and ingredients are defined by vanilla-format recipe JSON and can be changed by datapacks or other mods; they are not configuration-file settings. Replace the recipe by providing a recipe JSON with the same ID:
 
 - `modernminecarts:copper_rail`
 - `modernminecarts:directed_powered_rail_recipe`
@@ -86,71 +85,20 @@ Rail recipes use vanilla crafting recipe formats and can be replaced by datapack
 - `modernminecarts:waxed_oxidized_copper_rail`
 - `minecraft:powered_rail`
 
-Place a replacement JSON file at `data/<namespace>/recipes/<recipe_id>.json` in a datapack, using `minecraft:crafting_shaped` or `minecraft:crafting_shapeless` as appropriate. The vanilla powered rail recipe is included to retain the mod's 12-rail yield; overriding `minecraft:powered_rail` restores full datapack control over that recipe too.
+Place the override at `data/<namespace>/recipes/<recipe_id>.json` in your datapack. The default powered-rail recipe yields 12 rails.
 
+## Other Changes
 
----
+- Non-powered rails, except Rail Crossings, can reach the default Copper Rail speed; ascending rails use the configured speed cap.
+- Reduced air drag on minecarts to allow for further jumps.
 
-### Other Changes
+## Credits
 
-- Non-powered rails other than crossings can reach the speed of normal copper rails, with a configurable lower cap when ascending.
-- Doubled the powered rail crafting result from 6 to 12 rails.
-- Reduced minecart air drag to allow for further jumps.
+- **Original mod author:** [Kipama — ModernMinecarts](https://github.com/Kipama/Modern_Minecarts)
+- Copper Rail mechanics adapted from [FXCourel — Copper-Rails](https://github.com/FXCourel/Copper-Rails/tree/1.20.1), released under CC0-1.0.
+- Mod Menu integration uses the optional API from [TerraformersMC — ModMenu](https://github.com/TerraformersMC/ModMenu).
 
-The copper-rail mechanics are adapted from [Copper Rails](https://github.com/FXCourel/Copper-Rails/tree/1.20.1), released under CC0-1.0.
+## Supported Version
 
----
-
-## v1.2.0 Changelog
-
-### Feature Changes
-
-- Removed Copper smithing templates
-- Added Copper Rail crafting recipe (Powered Rail recipe using copper)
-- All modded crafting recipes now appear in the recipe book.
-- Shift-right-clicking in the air with a chain now removes its linking nbt-data.
-- Added Fabric and Neoforge as supported ModLaunchers.
-- Added configs for custom rail speeds, disabling specific features and changing crafting recipe yields.
-
-### Bug Fixes
-
-- Furnace minecarts now work independently from chained minecarts again
-- Furnace minecarts no longer consume fuel on powered rails.
-- Removed warnings and debug statements to prevent log spam.
-- Fixed bug that prevented villagers from becoming toolsmiths
-- Fixed issues with wax on and wax off achievements
-- Improved architecture on Fabric and Neoforge, which should lead to more mod compatibility on these versions.
-- Readded regular rail to creative menu on 1.19.2
-
-## v1.2.1 Changelog
-
-- Added config option for vanilla powered rail speed
-- Fixed Server side issues on Forge versions
-- Removed more debug statements
-
-## Curretly supported versions
-
-#### Forge
-
-- 1.19.2
-- 1.19.3
-- 1.19.4
-- 1.20.1
-- 1.20.2
-
-#### NeoForge
-
-- 1.20.1
-- 1.21.1
-- 1.21.3-1.21.4
-- 1.21.11
-- 26.1
-- 26.2
-
-#### Fabric
-
-- 1.20.1
-- 1.21.1
-- 1.21.11
-- 26.1
-- 26.2
+- Minecraft 1.20.1
+- Fabric
