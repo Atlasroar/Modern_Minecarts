@@ -72,8 +72,11 @@ The following values can be tweaked:
 
 ### Other Changes
 
+- Non-powered rails other than crossings can reach the speed of normal copper rails, with a configurable lower cap when ascending.
 - Doubled the powered rail crafting result from 6 to 12 rails.
 - Reduced minecart air drag to allow for further jumps.
+
+The copper-rail mechanics are adapted from [Copper Rails](https://github.com/FXCourel/Copper-Rails/tree/1.20.1), released under CC0-1.0.
 
 ---
 

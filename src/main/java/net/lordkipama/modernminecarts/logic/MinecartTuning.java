@@ -33,6 +33,10 @@ public final class MinecartTuning {
         return ModernMinecartsConfig.poweredRailSpeed();
     }
 
+    public static double normalRailSpeed() {
+        return copperRailSpeed();
+    }
+
     public static double ascendingCopperRailSpeed() {
         return ModernMinecartsConfig.maxAscendingSpeed();
     }

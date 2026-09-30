@@ -10,9 +10,7 @@ import net.lordkipama.modernminecarts.client.FurnaceMinecartScreen;
 import net.lordkipama.modernminecarts.block.ModBlocks;
 import net.lordkipama.modernminecarts.screen.ModScreenHandlers;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.BlockRenderManager;
 
 @Environment(EnvType.CLIENT)
 public class ModernMinecartsClient implements ClientModInitializer {
