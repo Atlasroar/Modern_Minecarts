@@ -554,6 +554,11 @@ public abstract class FurnaceMinecartMixin implements Inventory, NamedScreenHand
             return MinecartTuning.poweredRailSpeed();
         }
 
+        if (state.isOf(ModBlocks.SWIFT_POWERED_RAIL)) {
+            RailShape shape = state.get(((AbstractRailBlock) state.getBlock()).getShapeProperty());
+            return MinecartTuning.swiftPoweredRailSpeed(shape.isAscending());
+        }
+
         if (state.isOf(ModBlocks.RAIL_JUMP)) {
             RailShape shape = state.get(SlopedRailBlock.SHAPE);
             BlockPos launchPos = switch (shape) {
