@@ -2,6 +2,7 @@ package net.lordkipama.modernminecarts.block.Custom;
 
 
 import net.lordkipama.modernminecarts.block.ModBlocks;
+import net.lordkipama.modernminecarts.logic.PoweredRailConnectivity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
@@ -70,23 +71,6 @@ public class WaxedCopperRailBlock extends PoweredRailBlock {
 
     @Override
     protected boolean isPoweredByOtherRails(World world, BlockPos pos, boolean bl, int distance, RailShape shape) {
-        BlockState blockState = world.getBlockState(pos);
-        if (!(blockState.getBlock() instanceof CopperRailBlock) && !(blockState.getBlock() instanceof WaxedCopperRailBlock)) {
-            return false;
-        }
-        RailShape railShape = blockState.get(SHAPE);
-        if (shape == RailShape.EAST_WEST && (railShape == RailShape.NORTH_SOUTH || railShape == RailShape.ASCENDING_NORTH || railShape == RailShape.ASCENDING_SOUTH)) {
-            return false;
-        }
-        if (shape == RailShape.NORTH_SOUTH && (railShape == RailShape.EAST_WEST || railShape == RailShape.ASCENDING_EAST || railShape == RailShape.ASCENDING_WEST)) {
-            return false;
-        }
-        if (blockState.get(POWERED).booleanValue()) {
-            if (world.isReceivingRedstonePower(pos)) {
-                return true;
-            }
-            return this.isPoweredByOtherRails(world, pos, blockState, bl, distance + 1);
-        }
-        return false;
+        return PoweredRailConnectivity.isPoweredByOtherRails(world, pos, bl, distance, shape);
     }
 }
