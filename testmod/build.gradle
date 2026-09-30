@@ -14,7 +14,11 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	modImplementation project(path: ':', configuration: 'namedElements')
+	modImplementation files(rootProject.file("build/devlibs/modernminecarts-${rootProject.version}-dev.jar"))
+}
+
+tasks.named('compileJava').configure {
+	dependsOn project(':').tasks.named('jar')
 }
 
 loom {

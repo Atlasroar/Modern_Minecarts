@@ -315,7 +315,12 @@ public class MinecartMixin implements ChainMinecartInterface {
             if (railState != null
                     && !railState.isOf(ModBlocks.RAIL_JUMP)
                     && !railState.isOf(ModBlocks.RAIL_CROSSING)) {
-                if (railState.isOf(Blocks.POWERED_RAIL)) {
+                if (railState.isOf(ModBlocks.SWIFT_POWERED_RAIL)) {
+                    RailShape railShape = railState.get(
+                            ((AbstractRailBlock) railState.getBlock()).getShapeProperty()
+                    );
+                    cir.setReturnValue(MinecartTuning.swiftPoweredRailSpeed(railShape.isAscending()));
+                } else if (railState.isOf(Blocks.POWERED_RAIL)) {
                     cir.setReturnValue(MinecartTuning.poweredRailSpeed());
                 } else {
                     double railSpeed = modernminecarts$getCopperRailSpeed(railState);

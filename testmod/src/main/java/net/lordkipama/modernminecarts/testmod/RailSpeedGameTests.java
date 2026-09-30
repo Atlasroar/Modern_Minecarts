@@ -3,6 +3,7 @@ package net.lordkipama.modernminecarts.testmod;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.lordkipama.modernminecarts.ModernMinecartsConfig;
 import net.lordkipama.modernminecarts.block.ModBlocks;
+import net.lordkipama.modernminecarts.logic.MinecartTuning;
 import net.lordkipama.modernminecarts.testmod.mixin.AbstractMinecartInvoker;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
@@ -41,6 +42,47 @@ public final class RailSpeedGameTests implements FabricGameTest {
         BlockState poweredRail = Blocks.POWERED_RAIL.getDefaultState()
                 .with(PoweredRailBlock.POWERED, true);
         assertRailSpeed(context, poweredRail, ModernMinecartsConfig.poweredRailSpeed());
+    }
+
+    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
+    public void swiftPoweredRailUsesAcceleratedSpeed(TestContext context) {
+        assertRailSpeed(
+                context,
+                ModBlocks.SWIFT_POWERED_RAIL.getDefaultState().with(PoweredRailBlock.POWERED, true),
+                ModernMinecartsConfig.copperSpeed()
+        );
+    }
+
+    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
+    public void swiftPoweredRailActivatesFromRedstone(TestContext context) {
+        ServerWorld world = context.getWorld();
+        BlockPos railPos = context.getAbsolutePos(RAIL_POS);
+        world.setBlockState(railPos.down(), Blocks.STONE.getDefaultState());
+        world.setBlockState(railPos.north(), Blocks.REDSTONE_BLOCK.getDefaultState());
+        world.setBlockState(railPos, ModBlocks.SWIFT_POWERED_RAIL.getDefaultState());
+
+        context.waitAndRun(1L, () -> {
+            BlockState actualState = world.getBlockState(railPos);
+            context.assertTrue(
+                    actualState.get(PoweredRailBlock.POWERED),
+                    "Swift Powered Rail should activate when powered by redstone"
+            );
+            context.complete();
+        });
+    }
+
+    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
+    public void ascendingSwiftPoweredRailUsesConfiguredSpeedCap(TestContext context) {
+        double expectedSpeed = Math.min(
+                ModernMinecartsConfig.copperSpeed(),
+                ModernMinecartsConfig.maxAscendingSpeed()
+        );
+        double actualSpeed = MinecartTuning.swiftPoweredRailSpeed(true);
+        context.assertTrue(
+                Math.abs(expectedSpeed - actualSpeed) <= EPSILON,
+                "Expected ascending rail speed " + expectedSpeed + " but got " + actualSpeed
+        );
+        context.complete();
     }
 
     @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
