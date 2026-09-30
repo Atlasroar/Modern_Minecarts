@@ -67,6 +67,10 @@ The following values can be tweaked:
 
 - Copper Rail Speeds for each stage of oxidation
 
+### Mod Menu Configuration
+
+When Mod Menu is installed, Modern Minecarts exposes its configuration screen from the mod details page. Rail speed settings can be changed immediately; feature toggles are saved to `config/modernminecarts.properties` and require a restart to fully apply.
+
 ### Datapack Recipes
 
 Rail recipes use vanilla crafting recipe formats and can be replaced by datapacks or other mods by overriding their recipe IDs:
