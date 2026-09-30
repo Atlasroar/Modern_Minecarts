@@ -70,12 +70,12 @@ public final class ModernMinecartsConfig {
         save(logger);
     }
 
-    public static void save(Logger logger) {
+    public static boolean save(Logger logger) {
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
             try (Writer writer = new OutputStreamWriter(Files.newOutputStream(CONFIG_PATH), StandardCharsets.UTF_8)) {
                 writer.write("# Modern Minecarts configuration\n");
-                writer.write("# Edit the values below and restart the game to apply changes.\n\n");
+                writer.write("# Speed settings apply immediately. Feature toggles require a restart.\n\n");
 
                 writer.write("# Rail Speeds\n");
                 writer.write("# Allowed range for all speed values: 0.01 - 1.6\n");
@@ -95,9 +95,41 @@ public final class ModernMinecartsConfig {
                 writer.write("enable_rail_jump=" + enableRailJump + "\n\n");
 
             }
+            return true;
         } catch (IOException exception) {
-            logger.warn("Failed to write config file {}.", CONFIG_PATH, exception);
+            logger.error("Failed to write config file {}.", CONFIG_PATH, exception);
+            return false;
         }
+    }
+
+    public static boolean apply(
+            double copperSpeed,
+            double exposedCopperSpeed,
+            double weatheredCopperSpeed,
+            double oxidizedCopperSpeed,
+            double poweredRailSpeed,
+            double maxAscendingSpeed,
+            boolean enableFurnaceMinecartChunkloading,
+            boolean enableMinecartChaining,
+            boolean enableCopperRails,
+            boolean enableRailCrossing,
+            boolean enablePoweredDetectorRail,
+            boolean enableRailJump,
+            Logger logger
+    ) {
+        ModernMinecartsConfig.copperSpeed = clamp(copperSpeed, MIN_SPEED, MAX_SPEED);
+        ModernMinecartsConfig.exposedCopperSpeed = clamp(exposedCopperSpeed, MIN_SPEED, MAX_SPEED);
+        ModernMinecartsConfig.weatheredCopperSpeed = clamp(weatheredCopperSpeed, MIN_SPEED, MAX_SPEED);
+        ModernMinecartsConfig.oxidizedCopperSpeed = clamp(oxidizedCopperSpeed, MIN_SPEED, MAX_SPEED);
+        ModernMinecartsConfig.poweredRailSpeed = clamp(poweredRailSpeed, MIN_SPEED, MAX_SPEED);
+        ModernMinecartsConfig.maxAscendingSpeed = clamp(maxAscendingSpeed, MIN_SPEED, MAX_SPEED);
+        ModernMinecartsConfig.enableFurnaceMinecartChunkloading = enableFurnaceMinecartChunkloading;
+        ModernMinecartsConfig.enableMinecartChaining = enableMinecartChaining;
+        ModernMinecartsConfig.enableCopperRails = enableCopperRails;
+        ModernMinecartsConfig.enableRailCrossing = enableRailCrossing;
+        ModernMinecartsConfig.enablePoweredDetectorRail = enablePoweredDetectorRail;
+        ModernMinecartsConfig.enableRailJump = enableRailJump;
+        return save(logger);
     }
 
     public static double copperSpeed() {
