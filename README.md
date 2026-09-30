@@ -66,8 +66,23 @@ The following features can be disabled:
 The following values can be tweaked:
 
 - Copper Rail Speeds for each stage of oxidation
-- Copper Rail Recipe yield
-- Powered Rail Recipe yield
+
+### Datapack Recipes
+
+Rail recipes use vanilla crafting recipe formats and can be replaced by datapacks or other mods by overriding their recipe IDs:
+
+- `modernminecarts:copper_rail`
+- `modernminecarts:directed_powered_rail_recipe`
+- `modernminecarts:powered_detector_rail`
+- `modernminecarts:rail_crossing_recipe`
+- `modernminecarts:rail_jump`
+- `modernminecarts:waxed_copper_rail`
+- `modernminecarts:waxed_exposed_copper_rail`
+- `modernminecarts:waxed_weathered_copper_rail`
+- `modernminecarts:waxed_oxidized_copper_rail`
+- `minecraft:powered_rail`
+
+Place a replacement JSON file at `data/<namespace>/recipes/<recipe_id>.json` in a datapack, using `minecraft:crafting_shaped` or `minecraft:crafting_shapeless` as appropriate. The vanilla powered rail recipe is included to retain the mod's 12-rail yield; overriding `minecraft:powered_rail` restores full datapack control over that recipe too.
 
 
 ---
