@@ -39,12 +39,16 @@ public class DirectedPoweredRailBlock extends PoweredRailBlock {
         if (state == null) {
             return null;
         }
-        Direction positiveDirection = getPositiveDirection(state.get(SHAPE));
         Direction placementDirection = context.getHorizontalPlayerFacing();
-        if (placementDirection.getAxis() == positiveDirection.getAxis()) {
-            state = state.with(REVERSED, placementDirection != positiveDirection);
+        RailShape shape = state.get(SHAPE);
+        Direction positiveDirection = getPositiveDirection(shape);
+        if (placementDirection.getAxis() != positiveDirection.getAxis()) {
+            shape = placementDirection.getAxis() == Direction.Axis.X
+                    ? RailShape.EAST_WEST
+                    : RailShape.NORTH_SOUTH;
+            state = state.with(SHAPE, shape);
         }
-        return state;
+        return state.with(REVERSED, placementDirection != getPositiveDirection(shape));
     }
 
     @Override

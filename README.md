@@ -57,7 +57,7 @@ A simple intersection that supports straight travel from all directions.
 
 ### Directed Powered Rail
 
-Always accelerates minecarts in the same direction, including stationary carts. Use it to build one-way tracks and redstone-controlled train stations. Place it facing along the track to set its travel direction, or right-click it with an empty hand to reverse direction.
+Always accelerates minecarts in the same direction, including stationary carts. Use it to build one-way tracks and redstone-controlled train stations. When placed, its track and travel direction align with the direction you face; right-click it with an empty hand to reverse direction.
 
 ### Powered Detector Rail
 
@@ -112,4 +112,3 @@ Place the override at `data/<namespace>/recipes/<recipe_id>.json` in your datapa
 
 - Minecraft 1.20.1
 - Fabric
-- Kilt 1.20.1 (configured rail speeds are supported; Kilt's cart speed cap is adjusted to the active rail speed)
