@@ -96,6 +96,17 @@ public final class RailSpeedGameTests implements FabricGameTest {
     }
 
     @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
+    public void unpoweredDirectedRailUsesPoweredRailSpeedCap(TestContext context) {
+        double expectedSpeed = ModernMinecartsConfig.poweredRailSpeed();
+        double actualSpeed = MinecartTuning.directedPoweredRailSpeed(false, false);
+        context.assertTrue(
+                Math.abs(expectedSpeed - actualSpeed) <= EPSILON,
+                "Unpowered Directed Powered Rail should use the configured powered rail speed"
+        );
+        context.complete();
+    }
+
+    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
     public void directedRailRotationPreservesTravelDirection(TestContext context) {
         BlockState railState = ModBlocks.DIRECTED_POWERED_RAIL.getDefaultState()
                 .with(PoweredRailBlock.SHAPE, RailShape.EAST_WEST)
