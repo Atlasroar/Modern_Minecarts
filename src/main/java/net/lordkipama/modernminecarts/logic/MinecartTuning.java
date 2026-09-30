@@ -33,13 +33,17 @@ public final class MinecartTuning {
         return ModernMinecartsConfig.poweredRailSpeed();
     }
 
-    public static double swiftPoweredRailSpeed() {
+    public static double directedPoweredRailSpeed() {
         return copperRailSpeed();
     }
 
-    public static double swiftPoweredRailSpeed(boolean ascending) {
-        double speed = swiftPoweredRailSpeed();
+    public static double directedPoweredRailSpeed(boolean ascending) {
+        double speed = directedPoweredRailSpeed();
         return ascending ? Math.min(speed, ascendingCopperRailSpeed()) : speed;
+    }
+
+    public static double directedPoweredRailSpeed(boolean ascending, boolean powered) {
+        return powered ? directedPoweredRailSpeed(ascending) : poweredRailSpeed();
     }
 
     public static double normalRailSpeed() {

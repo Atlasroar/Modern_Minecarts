@@ -7,7 +7,7 @@ import net.lordkipama.modernminecarts.block.Custom.RailCrossingBlock;
 import net.lordkipama.modernminecarts.block.Custom.SlopedRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.WaxedCopperRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.PoweredDetectorRailBlock;
-import net.lordkipama.modernminecarts.block.Custom.SwiftPoweredRailBlock;
+import net.lordkipama.modernminecarts.block.Custom.DirectedPoweredRailBlock;
 import net.lordkipama.modernminecarts.item.FeatureToggleBlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -63,8 +63,8 @@ public class ModBlocks {
             new PoweredDetectorRailBlock(AbstractBlock.Settings.copy(Blocks.DETECTOR_RAIL)),
             ModernMinecartsConfig::enablePoweredDetectorRail);
 
-    public static final Block SWIFT_POWERED_RAIL = registerBlock("swift_powered_rail",
-            new SwiftPoweredRailBlock(AbstractBlock.Settings.copy(Blocks.POWERED_RAIL)));
+    public static final Block DIRECTED_POWERED_RAIL = registerBlock("directed_powered_rail",
+            new DirectedPoweredRailBlock(AbstractBlock.Settings.copy(Blocks.POWERED_RAIL)));
 
 
     private static Block registerBlock(String name, Block block){

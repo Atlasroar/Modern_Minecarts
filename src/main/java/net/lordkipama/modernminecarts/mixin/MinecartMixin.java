@@ -10,6 +10,7 @@ import net.lordkipama.modernminecarts.logic.MinecartTuning;
 import net.lordkipama.modernminecarts.logic.PoweredDetectorMotion;
 import net.lordkipama.modernminecarts.ModernMinecarts;
 import net.lordkipama.modernminecarts.block.Custom.CopperRailBlock;
+import net.lordkipama.modernminecarts.block.Custom.DirectedPoweredRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.PoweredDetectorRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.SlopedRailBlock;
 import net.lordkipama.modernminecarts.block.Custom.WaxedCopperRailBlock;
@@ -237,6 +238,21 @@ public class MinecartMixin implements ChainMinecartInterface {
             }
         }
 
+        if (state.isOf(ModBlocks.DIRECTED_POWERED_RAIL) && bl) {
+            Vec3d travelDirection = DirectedPoweredRailBlock.getTravelVector(state);
+            double directedSpeed = thisObject.getVelocity().dotProduct(travelDirection);
+            if (directedSpeed <= 0.01D) {
+                directedSpeed = 0.06D;
+            }
+            double maxSpeed = ((MinecartInvoker) thisObject).invokeGetMaxSpeed();
+            double speed = Math.min(directedSpeed, maxSpeed);
+            thisObject.setVelocity(
+                    travelDirection.x * speed,
+                    thisObject.getVelocity().y,
+                    travelDirection.z * speed
+            );
+        }
+
     }
 
     @Inject(method = "getMaxSpeed", at = @At("RETURN"), cancellable = true)
@@ -315,11 +331,14 @@ public class MinecartMixin implements ChainMinecartInterface {
             if (railState != null
                     && !railState.isOf(ModBlocks.RAIL_JUMP)
                     && !railState.isOf(ModBlocks.RAIL_CROSSING)) {
-                if (railState.isOf(ModBlocks.SWIFT_POWERED_RAIL)) {
+                if (railState.isOf(ModBlocks.DIRECTED_POWERED_RAIL)) {
                     RailShape railShape = railState.get(
                             ((AbstractRailBlock) railState.getBlock()).getShapeProperty()
                     );
-                    cir.setReturnValue(MinecartTuning.swiftPoweredRailSpeed(railShape.isAscending()));
+                    cir.setReturnValue(MinecartTuning.directedPoweredRailSpeed(
+                            railShape.isAscending(),
+                            railState.get(PoweredRailBlock.POWERED)
+                    ));
                 } else if (railState.isOf(Blocks.POWERED_RAIL)) {
                     cir.setReturnValue(MinecartTuning.poweredRailSpeed());
                 } else {

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "modernminecarts:swift_powered_rail_recipe"
+        "recipe": "modernminecarts:directed_powered_rail_recipe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "modernminecarts:swift_powered_rail_recipe"
+      "modernminecarts:directed_powered_rail_recipe"
     ]
   }
 }
