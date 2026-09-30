@@ -13,6 +13,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = AbstractMinecartEntity.class, priority = 900)
 public abstract class KiltMinecartSpeedMixin {
     @Inject(
+            method = "getCurrentCartSpeedCapOnRail",
+            at = @At("RETURN"),
+            cancellable = true,
+            remap = false,
+            require = 0
+    )
+    private void modernminecarts$useConfiguredCartSpeedCap(CallbackInfoReturnable<Float> cir) {
+        AbstractMinecartEntity cart = (AbstractMinecartEntity) (Object) this;
+        if (cart.isOnRail()) {
+            cir.setReturnValue((float) ((MinecartInvoker) cart).invokeGetMaxSpeed());
+        }
+    }
+
+    @Inject(
             method = "getMaxSpeedWithRail",
             at = @At("RETURN"),
             cancellable = true,
