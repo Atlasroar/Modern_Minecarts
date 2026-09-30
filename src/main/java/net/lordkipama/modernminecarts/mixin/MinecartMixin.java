@@ -59,12 +59,8 @@ public class MinecartMixin implements ChainMinecartInterface {
     @Unique private int childIdClient;
     @Unique private boolean jumpedOffSlope = false;
     @Unique private double maxSpeed = 0.8;
-    /**
-     * @author LordKipama
-     * @reason Mixins are scary and I'm too bad to add everything separately
-     */
-    @Overwrite
-    public void moveOnRail(BlockPos pos, BlockState state) {
+    @Unique
+    private void modernminecarts$moveOnCustomRail(BlockPos pos, BlockState state) {
         AbstractMinecartEntity thisObject = (AbstractMinecartEntity)(Object)this;
         double w;
         Vec3d vec3d5;
@@ -257,6 +253,20 @@ public class MinecartMixin implements ChainMinecartInterface {
             );
         }
 
+    }
+
+    @Inject(method = "moveOnRail", at = @At("HEAD"), cancellable = true)
+    private void modernminecarts$moveCustomRails(
+            BlockPos pos,
+            BlockState state,
+            CallbackInfo ci
+    ) {
+        if (state.isOf(ModBlocks.DIRECTED_POWERED_RAIL)
+                || state.isOf(ModBlocks.POWERED_DETECTOR_RAIL)
+                || state.isOf(ModBlocks.RAIL_CROSSING)) {
+            modernminecarts$moveOnCustomRail(pos, state);
+            ci.cancel();
+        }
     }
 
     @Inject(method = "getMaxSpeed", at = @At("RETURN"), cancellable = true)
