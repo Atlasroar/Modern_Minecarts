@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "modernminecarts:swift_powered_rail"
+          "name": "modernminecarts:directed_powered_rail"
         }
       ],
       "conditions": [
@@ -16,5 +16,5 @@
       ]
     }
   ],
-  "random_sequence": "modernminecarts:blocks/swift_powered_rail"
+  "random_sequence": "modernminecarts:blocks/directed_powered_rail"
 }

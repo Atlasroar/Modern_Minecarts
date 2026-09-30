@@ -38,7 +38,7 @@ Chain multiple Furnace Minecarts together when pulling large trains to avoid thi
 
 ### New Rail Types
 
-Swift Powered Rail: A redstone-powered rail that accelerates minecarts to copper-rail speed.
+Directed Powered Rail: A redstone-powered rail that launches stationary minecarts and accelerates all carts in one direction. Place it while facing along the track to set its direction, or right-click it with an empty hand to reverse it.
 
 Rail Jump: This ramp lets minecarts leap over gaps, even when not using experimental features.
 It is crafted with a rail and a stick, or by using a stick on an already placed rail.
