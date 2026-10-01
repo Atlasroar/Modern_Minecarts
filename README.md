@@ -57,7 +57,7 @@ A simple intersection that supports straight travel from all directions.
 
 ### Directed Powered Rail
 
-Always accelerates minecarts in the same direction, including stationary carts. Use it to build one-way tracks and redstone-controlled train stations. When placed, its track and travel direction align with the direction you face; right-click it with an empty hand to reverse direction.
+Always accelerates minecarts in the same direction, including stationary carts. Use it to build one-way tracks and redstone-controlled train stations. When placed, its track and directional marking align with the direction you face; right-click it with an empty hand to reverse direction.
 
 ### Powered Detector Rail
 
