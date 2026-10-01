@@ -9,18 +9,18 @@
       "y": 270
     },
     "powered=false,shape=ascending_north,reversed=false": {
-      "model": "modernminecarts:block/directed_powered_rail_raised_ne"
-    },
-    "powered=false,shape=ascending_north,reversed=true": {
       "model": "modernminecarts:block/directed_powered_rail_raised_sw",
       "y": 180
     },
-    "powered=false,shape=ascending_south,reversed=false": {
-      "model": "modernminecarts:block/directed_powered_rail_raised_sw"
+    "powered=false,shape=ascending_north,reversed=true": {
+      "model": "modernminecarts:block/directed_powered_rail_raised_ne"
     },
-    "powered=false,shape=ascending_south,reversed=true": {
+    "powered=false,shape=ascending_south,reversed=false": {
       "model": "modernminecarts:block/directed_powered_rail_raised_ne",
       "y": 180
+    },
+    "powered=false,shape=ascending_south,reversed=true": {
+      "model": "modernminecarts:block/directed_powered_rail_raised_sw"
     },
     "powered=false,shape=ascending_west,reversed=false": {
       "model": "modernminecarts:block/directed_powered_rail_raised_sw",
@@ -39,11 +39,11 @@
       "y": 270
     },
     "powered=false,shape=north_south,reversed=false": {
-      "model": "modernminecarts:block/directed_powered_rail"
-    },
-    "powered=false,shape=north_south,reversed=true": {
       "model": "modernminecarts:block/directed_powered_rail",
       "y": 180
+    },
+    "powered=false,shape=north_south,reversed=true": {
+      "model": "modernminecarts:block/directed_powered_rail"
     },
     "powered=true,shape=ascending_east,reversed=false": {
       "model": "modernminecarts:block/directed_powered_rail_on_raised_ne",
@@ -54,18 +54,18 @@
       "y": 270
     },
     "powered=true,shape=ascending_north,reversed=false": {
-      "model": "modernminecarts:block/directed_powered_rail_on_raised_ne"
-    },
-    "powered=true,shape=ascending_north,reversed=true": {
       "model": "modernminecarts:block/directed_powered_rail_on_raised_sw",
       "y": 180
     },
-    "powered=true,shape=ascending_south,reversed=false": {
-      "model": "modernminecarts:block/directed_powered_rail_on_raised_sw"
+    "powered=true,shape=ascending_north,reversed=true": {
+      "model": "modernminecarts:block/directed_powered_rail_on_raised_ne"
     },
-    "powered=true,shape=ascending_south,reversed=true": {
+    "powered=true,shape=ascending_south,reversed=false": {
       "model": "modernminecarts:block/directed_powered_rail_on_raised_ne",
       "y": 180
+    },
+    "powered=true,shape=ascending_south,reversed=true": {
+      "model": "modernminecarts:block/directed_powered_rail_on_raised_sw"
     },
     "powered=true,shape=ascending_west,reversed=false": {
       "model": "modernminecarts:block/directed_powered_rail_on_raised_sw",
@@ -84,11 +84,11 @@
       "y": 270
     },
     "powered=true,shape=north_south,reversed=false": {
-      "model": "modernminecarts:block/directed_powered_rail_on"
-    },
-    "powered=true,shape=north_south,reversed=true": {
       "model": "modernminecarts:block/directed_powered_rail_on",
       "y": 180
+    },
+    "powered=true,shape=north_south,reversed=true": {
+      "model": "modernminecarts:block/directed_powered_rail_on"
     }
   }
 }
