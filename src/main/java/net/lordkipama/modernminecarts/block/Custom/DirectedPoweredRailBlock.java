@@ -41,14 +41,35 @@ public class DirectedPoweredRailBlock extends PoweredRailBlock {
         }
         Direction placementDirection = context.getHorizontalPlayerFacing();
         RailShape shape = state.get(SHAPE);
-        Direction positiveDirection = getPositiveDirection(shape);
-        if (placementDirection.getAxis() != positiveDirection.getAxis()) {
-            shape = placementDirection.getAxis() == Direction.Axis.X
-                    ? RailShape.EAST_WEST
-                    : RailShape.NORTH_SOUTH;
-            state = state.with(SHAPE, shape);
+        boolean reversed;
+        switch (placementDirection) {
+            case EAST -> {
+                if (getPositiveDirection(shape).getAxis() != Direction.Axis.X) {
+                    shape = RailShape.EAST_WEST;
+                }
+                reversed = false;
+            }
+            case WEST -> {
+                if (getPositiveDirection(shape).getAxis() != Direction.Axis.X) {
+                    shape = RailShape.EAST_WEST;
+                }
+                reversed = true;
+            }
+            case SOUTH -> {
+                if (getPositiveDirection(shape).getAxis() != Direction.Axis.Z) {
+                    shape = RailShape.NORTH_SOUTH;
+                }
+                reversed = false;
+            }
+            case NORTH -> {
+                if (getPositiveDirection(shape).getAxis() != Direction.Axis.Z) {
+                    shape = RailShape.NORTH_SOUTH;
+                }
+                reversed = true;
+            }
+            default -> throw new IllegalStateException("Expected horizontal player facing, got " + placementDirection);
         }
-        return state.with(REVERSED, placementDirection != getPositiveDirection(shape));
+        return state.with(SHAPE, shape).with(REVERSED, reversed);
     }
 
     @Override
@@ -86,10 +107,8 @@ public class DirectedPoweredRailBlock extends PoweredRailBlock {
     }
 
     public static Vec3d getTravelVector(BlockState state) {
-        Direction positiveDirection = getPositiveDirection(state.get(SHAPE));
-        return state.get(REVERSED)
-                ? new Vec3d(-positiveDirection.getOffsetX(), 0.0D, -positiveDirection.getOffsetZ())
-                : new Vec3d(positiveDirection.getOffsetX(), 0.0D, positiveDirection.getOffsetZ());
+        Direction direction = getTravelDirection(state);
+        return new Vec3d(direction.getOffsetX(), 0.0D, direction.getOffsetZ());
     }
 
     private static Direction getTravelDirection(BlockState state) {
