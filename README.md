@@ -72,11 +72,14 @@ The configuration screen and `config/modernminecarts.properties` provide setting
 - Copper, exposed, weathered, and oxidized Copper Rail speeds
 - Vanilla Powered Rail speed
 - Maximum speed on ascending rails
+- Furnace Minecart speed cap (`furnace_minecart_speed`, default `0.4` blocks per tick, or 8 blocks per second)
 - Furnace Minecart chunkloading
 - Minecart chaining
 - Copper Rails, Rail Crossings, Powered Detector Rail, and Rail Jump feature toggles
 
 Speed settings saved in Mod Menu apply immediately. Feature toggles take full effect after restarting the game. Manual edits to the properties file are read when the game starts. Speed values are limited to `0.01`–`1.6`. Directed Powered Rails are always registered and do not have a feature toggle.
+
+The furnace speed cap applies to both leading and chained furnace minecarts. Rail speed limits and train-load slowdown can reduce their speed further. Lower this setting to slow an engine; it does not change chain strength or guarantee that a train stays connected on every track.
 
 Powered Rails default to `1.0`, faster than every Copper Rail oxidation stage. Existing configuration files that still contain the old default of `0.4` are upgraded automatically; other saved speed values are retained.
 
