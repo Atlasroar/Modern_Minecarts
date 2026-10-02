@@ -4,7 +4,6 @@ import net.lordkipama.modernminecarts.ModernMinecartsConfig;
 
 public final class MinecartTuning {
     public static final double VANILLA_RAIL_SPEED = 0.4D;
-    public static final double FURNACE_MINECART_MAX_SPEED = 0.4D;
     public static final double MINIMUM_ENGINE_SPEED = 0.2D;
     public static final int SPEEDOMETER_SCALE = 80;
     public static final int SPEEDOMETER_HEIGHT = 32;
@@ -31,6 +30,10 @@ public final class MinecartTuning {
 
     public static double poweredRailSpeed() {
         return ModernMinecartsConfig.poweredRailSpeed();
+    }
+
+    public static double furnaceMinecartSpeed() {
+        return ModernMinecartsConfig.furnaceMinecartSpeed();
     }
 
     public static double directedPoweredRailSpeed() {

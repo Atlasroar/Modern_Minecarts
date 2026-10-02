@@ -17,7 +17,7 @@ public final class ModernMinecartsConfigScreen extends Screen {
     private static final int COLUMN_WIDTH = 205;
 
     private final Screen parent;
-    private final double[] speeds = new double[6];
+    private final double[] speeds = new double[7];
     private final boolean[] features = new boolean[6];
     private Text saveError;
 
@@ -30,6 +30,7 @@ public final class ModernMinecartsConfigScreen extends Screen {
         speeds[3] = ModernMinecartsConfig.oxidizedCopperSpeed();
         speeds[4] = ModernMinecartsConfig.poweredRailSpeed();
         speeds[5] = ModernMinecartsConfig.maxAscendingSpeed();
+        speeds[6] = ModernMinecartsConfig.furnaceMinecartSpeed();
         features[0] = ModernMinecartsConfig.enableFurnaceMinecartChunkloading();
         features[1] = ModernMinecartsConfig.enableMinecartChaining();
         features[2] = ModernMinecartsConfig.enableCopperRails();
@@ -45,17 +46,18 @@ public final class ModernMinecartsConfigScreen extends Screen {
 
         addDrawableChild(new SpeedSlider(left, 45, 0, "gui.modernminecarts.config.copper_speed"));
         addDrawableChild(new SpeedSlider(right, 45, 1, "gui.modernminecarts.config.exposed_copper_speed"));
-        addDrawableChild(new SpeedSlider(left, 67, 2, "gui.modernminecarts.config.weathered_copper_speed"));
-        addDrawableChild(new SpeedSlider(right, 67, 3, "gui.modernminecarts.config.oxidized_copper_speed"));
-        addDrawableChild(new SpeedSlider(left, 89, 4, "gui.modernminecarts.config.powered_rail_speed"));
-        addDrawableChild(new SpeedSlider(right, 89, 5, "gui.modernminecarts.config.max_ascending_speed"));
+        addDrawableChild(new SpeedSlider(left, 65, 2, "gui.modernminecarts.config.weathered_copper_speed"));
+        addDrawableChild(new SpeedSlider(right, 65, 3, "gui.modernminecarts.config.oxidized_copper_speed"));
+        addDrawableChild(new SpeedSlider(left, 85, 4, "gui.modernminecarts.config.powered_rail_speed"));
+        addDrawableChild(new SpeedSlider(right, 85, 5, "gui.modernminecarts.config.max_ascending_speed"));
+        addDrawableChild(new SpeedSlider(left, 105, 6, "gui.modernminecarts.config.furnace_minecart_speed"));
 
-        addFeatureButton(left, 128, 0, "gui.modernminecarts.config.furnace_chunkloading");
-        addFeatureButton(right, 128, 1, "gui.modernminecarts.config.minecart_chaining");
-        addFeatureButton(left, 150, 2, "gui.modernminecarts.config.copper_rails");
-        addFeatureButton(right, 150, 3, "gui.modernminecarts.config.rail_crossing");
-        addFeatureButton(left, 172, 4, "gui.modernminecarts.config.powered_detector_rail");
-        addFeatureButton(right, 172, 5, "gui.modernminecarts.config.rail_jump");
+        addFeatureButton(left, 141, 0, "gui.modernminecarts.config.furnace_chunkloading");
+        addFeatureButton(right, 141, 1, "gui.modernminecarts.config.minecart_chaining");
+        addFeatureButton(left, 161, 2, "gui.modernminecarts.config.copper_rails");
+        addFeatureButton(right, 161, 3, "gui.modernminecarts.config.rail_crossing");
+        addFeatureButton(left, 181, 4, "gui.modernminecarts.config.powered_detector_rail");
+        addFeatureButton(right, 181, 5, "gui.modernminecarts.config.rail_jump");
 
         addDrawableChild(ButtonWidget.builder(
                 Text.translatable("gui.done"),
@@ -78,14 +80,14 @@ public final class ModernMinecartsConfigScreen extends Screen {
                 textRenderer,
                 Text.translatable("gui.modernminecarts.config.features_section"),
                 width / 2,
-                112,
+                129,
                 0xFFFFFF
         );
         context.drawCenteredTextWithShadow(
                 textRenderer,
                 Text.translatable("gui.modernminecarts.config.restart_note"),
                 width / 2,
-                197,
+                202,
                 0xAAAAAA
         );
         if (saveError != null) {
@@ -119,6 +121,7 @@ public final class ModernMinecartsConfigScreen extends Screen {
                 speeds[3],
                 speeds[4],
                 speeds[5],
+                speeds[6],
                 features[0],
                 features[1],
                 features[2],

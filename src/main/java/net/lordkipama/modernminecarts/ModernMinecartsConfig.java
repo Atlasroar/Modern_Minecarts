@@ -29,6 +29,7 @@ public final class ModernMinecartsConfig {
     private static double oxidizedCopperSpeed = 0.2D;
     private static double poweredRailSpeed = DEFAULT_POWERED_RAIL_SPEED;
     private static double maxAscendingSpeed = 0.5D;
+    private static double furnaceMinecartSpeed = 0.4D;
 
     private static boolean enableFurnaceMinecartChunkloading = true;
     private static boolean enableMinecartChaining = true;
@@ -69,6 +70,7 @@ public final class ModernMinecartsConfig {
             poweredRailSpeed = DEFAULT_POWERED_RAIL_SPEED;
         }
         maxAscendingSpeed = readDouble(properties, "max_ascending_speed", 0.5D, MIN_SPEED, MAX_SPEED, logger);
+        furnaceMinecartSpeed = readDouble(properties, "furnace_minecart_speed", 0.4D, MIN_SPEED, MAX_SPEED, logger);
 
         enableFurnaceMinecartChunkloading = readBoolean(
                 properties,
@@ -101,6 +103,8 @@ public final class ModernMinecartsConfig {
                 writer.write("oxidized_copper_speed=" + oxidizedCopperSpeed + "\n");
                 writer.write("powered_rail_speed=" + poweredRailSpeed + "\n");
                 writer.write("max_ascending_speed=" + maxAscendingSpeed + "\n\n");
+                writer.write("# Furnace minecart speed cap in blocks per tick (rail and train-load limits still apply)\n");
+                writer.write("furnace_minecart_speed=" + furnaceMinecartSpeed + "\n\n");
 
                 writer.write("# New Features\n");
                 writer.write("enable_furnace_minecart_chunkloading=" + enableFurnaceMinecartChunkloading + "\n");
@@ -125,6 +129,7 @@ public final class ModernMinecartsConfig {
             double oxidizedCopperSpeed,
             double poweredRailSpeed,
             double maxAscendingSpeed,
+            double furnaceMinecartSpeed,
             boolean enableFurnaceMinecartChunkloading,
             boolean enableMinecartChaining,
             boolean enableCopperRails,
@@ -139,6 +144,7 @@ public final class ModernMinecartsConfig {
         ModernMinecartsConfig.oxidizedCopperSpeed = clamp(oxidizedCopperSpeed, MIN_SPEED, MAX_SPEED);
         ModernMinecartsConfig.poweredRailSpeed = clamp(poweredRailSpeed, MIN_SPEED, MAX_SPEED);
         ModernMinecartsConfig.maxAscendingSpeed = clamp(maxAscendingSpeed, MIN_SPEED, MAX_SPEED);
+        ModernMinecartsConfig.furnaceMinecartSpeed = clamp(furnaceMinecartSpeed, MIN_SPEED, MAX_SPEED);
         ModernMinecartsConfig.enableFurnaceMinecartChunkloading = enableFurnaceMinecartChunkloading;
         ModernMinecartsConfig.enableMinecartChaining = enableMinecartChaining;
         ModernMinecartsConfig.enableCopperRails = enableCopperRails;
@@ -170,6 +176,10 @@ public final class ModernMinecartsConfig {
 
     public static double maxAscendingSpeed() {
         return maxAscendingSpeed;
+    }
+
+    public static double furnaceMinecartSpeed() {
+        return furnaceMinecartSpeed;
     }
 
     public static boolean enableFurnaceMinecartChunkloading() {
