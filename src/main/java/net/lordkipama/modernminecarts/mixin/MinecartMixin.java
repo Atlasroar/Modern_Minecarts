@@ -50,7 +50,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.UUID;
 
 
-@Mixin(AbstractMinecartEntity.class)
+// Lower than the default (1000) so other mods may inject into methods overwritten here.
+@Mixin(value = AbstractMinecartEntity.class, priority = 900)
 public class MinecartMixin implements ChainMinecartInterface {
     @Unique private @Nullable UUID parentUuid;
     @Unique private @Nullable UUID childUuid;
